@@ -1,73 +1,76 @@
-# React + TypeScript + Vite
+# React App Dockerized with Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project demonstrates how to run a React application inside a Docker container using Vite.  
+The goal is to eliminate local environment dependency issues and ensure the application runs consistently on any system that has Docker installed.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+- React (Vite)
+- TypeScript
+- Docker
+- Node.js (inside container)
+- Git & GitHub
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Why Docker?
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- No need to install Node.js or dependencies manually
+- Same behavior across all systems
+- Easy setup and execution using a single command
+- Portable and reproducible development environment
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Project Structure
+DockerProject/
+├── Dockerfile
+├── .dockerignore
+├── package.json
+├── package-lock.json
+├── vite.config.ts
+├── index.html
+├── src/
+│ ├── App.tsx
+│ ├── main.tsx
+│ └── styles
+└── public/
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Dockerfile Overview
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The Dockerfile:
+- Uses a lightweight Node Alpine image
+- Installs dependencies inside the container
+- Runs the React app using Vite
+- Exposes port `5173`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## How to Run This Project Using Docker
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/Sweta-82/Docker.git
+cd DockerProject
+
+docker build -t dockerproject .
+docker run -p 5173:5173 dockerproject
+http://localhost:5173
+
+
+### Important Notes
+node_modules are NOT pushed to GitHub
+Dependencies are installed automatically inside the Docker container
+No local Node or npm setup is required to run the app using Docker
+
+### Docker Image Info
+dockerproject:latest
+
+### Git Workflow Used
+- main branch for stable code
+-Feature branch created and merged into main
+-Changes pushed to GitHub using standard Git workflow
