@@ -1,9 +1,12 @@
 import React from 'react'
+import Background from './components/Background'
+import Forgound from './components/Forgound'
 
 function App() {
   return (
     <>
-      <h1>Hello, Docker with React!</h1>
+    <Background/>
+    <Forgound />
     </>
   )
 }
