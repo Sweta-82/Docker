@@ -3,7 +3,8 @@ import { FaArrowCircleDown } from "react-icons/fa";
 import { TbFiles } from "react-icons/tb";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 
-import { motion } from "motion/react"
+import { motion } from "framer-motion";
+
 function Cards({data}) {
   return (
     <motion.div drag dragConstraints={{ left: 0, right: 300, top: 0, bottom: 300 }} whileDrag={{ opacity: 0.5 }} dragElastic={1} animate={{ x: 100  }} transition={{ type: "spring", stiffness: 100 }} className='relative p-5 overflow-hidden text-white rounded-[50px] bg-zinc-900/90 w-50 h-62'>
